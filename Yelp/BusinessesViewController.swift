@@ -10,6 +10,8 @@ import UIKit
 
 class BusinessesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var businesses: [Business]!
+    var filteredData: [Business]!
+    
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -18,7 +20,17 @@ class BusinessesViewController: UIViewController,UITableViewDelegate,UITableView
         
         tableView.delegate = self
         tableView.dataSource = self
-
+        
+        let searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        
+        searchBar.showsCancelButton = true
+        
+        
+        navigationItem.titleView = searchBar
+        searchBar
+        let search = searchBar.text
+        
         Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
@@ -67,7 +79,7 @@ class BusinessesViewController: UIViewController,UITableViewDelegate,UITableView
     /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // In a storyboard-based application, you wil2222l often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
